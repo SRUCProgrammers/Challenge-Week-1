@@ -1,0 +1,14 @@
+c23456789112345678921234567893123456789412345678951234567896123456789712
+c        ^         ^         ^         ^         ^         ^         ^  
+c        10        20        30        40        50        60        70 
+
+c Col.     1: Blank, or c or * or ! for comments
+c Col.   2-5: Statement label (optional)
+c Col.     6: Continuation of previous line (optional; see below)
+c Col.  7-72: Statements
+c Col. 73-80: Sequence number (optional, rarely used today)
+
+c My first program   
+       program first
+       print *, 'Hello, world! - is this working!?'
+       end
