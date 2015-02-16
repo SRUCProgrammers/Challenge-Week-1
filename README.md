@@ -16,7 +16,7 @@ Calculate the mean and SD of your data
 
 Task 3: graph it up! 
 
-Draw a histogram (or series of histograms) of your data. What's the best way to visualise this in your language?
+Draw a histogram (or series of histograms) of your data. What's the best way to visualise this in your language? 
 
 Happy Coding! 
 Arjan
