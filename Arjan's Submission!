@@ -1,1 +1,13 @@
-This is empty :)
+#!/bin/bash
+
+##replace double commas with single commans
+sed -i 's/,,/,/g' Week1Data
+##delete lines with NaN in them
+sed '/NaN/d' ./Week1Data > Week1Data1
+##delete lines with -999 in them
+sed '/-999/d' ./Week1Data > Week1Data2
+##calculate average of col1
+awk '{mean += $1} END {print "mean = " mean/NR;}' Week1Data2
+##calculate standard deviation of col1
+awk '{sum+=$1; sumsq+=$1*$1;} END {print "stdev = " sqrt(sumsq/NR - (sum/NR)**2);}' Week1Data2
+##can't graph in bash! Off to python...
