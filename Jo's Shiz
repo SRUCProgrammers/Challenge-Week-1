@@ -1,0 +1,14 @@
+#I'm using bash...
+
+#Used sed to remove NaN values, -999 values and the extra commas:
+sed '/NaN/d' data.txt > data1.txt
+sed '/-999/d' data1.txt > data2.txt
+sed 's/,,/,/g' data2.txt > data3.txt
+
+#I had to create a new file at each stage...for some reason, the changes weren't being applied otherwise.
+
+#Used awk to print the mean and standard deviation...
+awk '{sum += $1} END {print "AVG=",sum/NR}' data3.txt
+awk '{sum+=$1; sumsq+=$1*$1} END {print sqrt(sumsq/NR - (sum/NR)**2)}' data3.txt
+
+#Histograms..I've already spent around 1000 years doing the above, so will do this after the meeting!
