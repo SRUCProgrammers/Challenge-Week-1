@@ -1,0 +1,72 @@
+---
+title: "week1"
+author: "Luise Seeker"
+date: "Saturday, February 21, 2015"
+output: html_document
+---
+
+
+
+```{r}
+library(ggplot2)
+library(knitr)
+```
+
+```{r}
+data<- read.csv("week1Data.csv", header=TRUE)
+#data
+```
+
+
+```{r}
+data[data==-999]<-NA 
+data.noNA<-na.omit(data)
+#data.noNA
+```
+
+
+```{r}
+clean <- function(ttt){
+   as.numeric( gsub('[^a-zA-Z0-9.]', '', ttt))
+}
+ data.noNA[] <- sapply(data.noNA, clean)
+ str(data)
+```
+
+```{r}
+m.Ap<-mean(data.noNA$Apples)
+m.Ap
+sd.Ap<-sd(data.noNA$Apples)
+sd.Ap
+```
+
+
+```{r}
+m.Or<-mean(data.noNA$Oranges)
+m.Or
+sd.Or<-sd(data.noNA$Oranges)
+sd.Or
+```
+
+```{r}
+m.Co<-mean(data.noNA$Control)
+m.Co
+sd.Co<-sd(data.noNA$Control)
+sd.Co
+```
+
+```{r}
+apples<-qplot(data.noNA$Apples)
+apples
+```
+
+
+```{r}
+oranges<-qplot(data.noNA$Oranges)
+oranges
+```
+
+```{r}
+control<-qplot(data.noNA$Control)
+control
+```
