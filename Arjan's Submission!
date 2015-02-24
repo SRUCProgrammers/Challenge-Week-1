@@ -24,8 +24,12 @@ y = pd.read_csv('C:\Users\Atolkamp\week1data.txt')
 print y['apples'] 
 ##Here I remove all negative values
 cleanDF= y[(y > 0).all(1)]
-##Set column names
+## calculate some stuff 
+print cleanDF.describe()
+###this outputs count, mean, std, and he percentile stats :)
+##define columns
 apples, oranges, control = cleanDF['apples'], cleanDF['oranges'], cleanDF['control']
+ 
 ##set bin properties....
 bins = np.linspace(0, 1000, 100)
 plt.hist(apples, bins, alpha=0.5, label='apples')
