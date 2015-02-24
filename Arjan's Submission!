@@ -1,3 +1,89 @@
+'''
+##This is how your data was generated (Minus errors)
+import random
+import numpy as np
+mu, sigma = 500, 100
+apples = np.random.normal(mu, sigma, 1000)
+oranges = np.random.poisson(lam=450, size=1000)
+control = [int(1000*random.random()) for i in xrange(1000)]
+'''
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+### Here I replace double commas with single commas and create a 'cleaner' file
+infile = open('C:\Users\Atolkamp\week1data.txt').read()
+outfile = open('C:\Users\Atolkamp\week1data2.txt', 'w')
+replacements = {',,':','}
+for i in replacements.keys():
+    infile = infile.replace(i, replacements[i])
+outfile.write(infile)
+outfile.close
+## Pandas dataframes are great, allow for easy indexing etc and ignores NaN as default!
+y = pd.read_csv('C:\Users\Atolkamp\week1data.txt')
+print y['apples'] 
+##Here I remove all negative values
+cleanDF= y[(y > 0).all(1)]
+##Set column names
+apples, oranges, control = cleanDF['apples'], cleanDF['oranges'], cleanDF['control']
+##set bin properties....
+bins = np.linspace(0, 1000, 100)
+plt.hist(apples, bins, alpha=0.5, label='apples')
+plt.hist(oranges, bins, alpha=0.5, label='oranges')
+plt.hist(control, bins, alpha=0.5, label='control')
+plt.legend(loc='upper right')
+##with one plt.show we show all histograns on same plot
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #!/bin/bash
 
 ##replace double commas with single commans
