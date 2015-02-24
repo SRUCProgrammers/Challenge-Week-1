@@ -1,0 +1,90 @@
+# Comment out as appropriate (can comment large selections at once in Spyder)
+
+ #Step 1:  find and replace the dodgy stuff and save as a new file
+
+
+f1 = open('H:\Programmers_club\Week_1\wk1_data.txt', 'r') # file you want to reference
+f2 = open('H:\Programmers_club\Week_1\wk1_clean.csv', 'w') # new file you want to write to
+
+ref = {'-999':'NaN',',,':','} # Creates a dictionary (key:value)
+
+for line in f1: # 'for' statment loops over a list / characters in a string / lines in a file / keys in a dictionary
+    for k, v in ref.iteritems():  # 'iteritems' runs an iterator over the dictionary's items
+        line = line.replace(k, v) # replaces the 'key' item with the 'value' item
+    f2.write(line) # writes file with replacement values to f2
+f1.close() 
+f2.close()
+
+
+
+#Step 2: Import the cleaned up file and save the mean and st dev to a new .csv file
+
+
+
+import csv as csv
+import numpy as np
+
+csv_file_object = csv.reader(open('H:\Programmers_club\Week_1\wk1_clean.csv', 'rU')) # open as 'rU' or python
+# gets upset!
+header = csv_file_object.next()  # this skips the header column 
+data=[] 
+
+for row in csv_file_object:
+    data.append(row) # not sure if this is necessary! Look into later
+data = np.array(data) #converts into an array
+
+df = data.astype(np.float) # convert string to float
+
+apple_mean = np.nanmean(data[0::,0].astype(np.float)) 
+oranges_mean = np.nanmean(df[0::,1].astype(np.float)) 
+control_mean = np.nanmean(data[0::,2].astype(np.float))
+apple_stdev = np.nanstd(data[0::,0].astype(np.float))
+orange_stdev = np.nanstd(data[0::,1].astype(np.float))
+control_stdev = np.nanstd(data[0::,2].astype(np.float)) # more efficient way of doing this?!
+print apple_mean, oranges_mean, control_mean
+print apple_stdev, orange_stdev, control_stdev
+
+# note, can also get full descriptive stats easily using pandas 'df.describe()', 
+#but I couldn't figure out how to save the output!
+
+a = np.asarray([[apple_mean , oranges_mean , control_mean] , 
+[apple_stdev, orange_stdev, control_stdev]])
+np.savetxt("H:\Programmers_club\Week_1\stored_means.csv", a, delimiter=",") # save the means and stdevs as a new .csv file 
+# for charting 
+
+
+
+#Step 3: Make a pretty graph using the mean and StDev saved from step 2
+
+
+
+
+import csv as csv
+import numpy as np
+import matplotlib.pyplot as plt
+import pylab
+
+data = np.genfromtxt('H:\Programmers_club\Week_1\stored_means.csv', dtype=float, delimiter=',', skip_header=0) # skip_header = 0 - 
+# no header data in this file
+data = np.array(data) 
+df = data.astype(np.float)
+#print data
+
+N = 3
+means = (np.array(data[0,0::].astype(np.float))) # reference array row 0, all columns
+stdev =   (np.array(data[1,0::].astype(np.float))) #reference row 1, all columns
+
+ind = np.arange(N)  # the x locations for the groups
+width = 0.5       # the width of the bars
+
+fig, ax = plt.subplots() # creates new figure
+bar_format = ax.bar(ind, means, width, color='m', yerr=stdev) # format of bars
+
+# add some text for labels, title and axes ticks
+ax.set_ylabel('Mean sugar concentration (mg)') # labels Y axis
+ax.set_xticks(ind+width/2) # centers bars over tick
+ax.set_xticklabels( ('Apples', 'Oranges', 'Control') ) # x axis data labels
+
+
+
+plt.show()
