@@ -20,7 +20,7 @@ for i in replacements.keys():
 outfile.write(infile)
 outfile.close
 ## Pandas dataframes are great, allow for easy indexing etc and ignores NaN as default!
-y = pd.read_csv('C:\Users\Atolkamp\week1data.txt')
+y = pd.read_csv('C:\Users\Atolkamp\week1data2.txt')
 print y['apples'] 
 ##Here I remove all negative values
 cleanDF= y[(y > 0).all(1)]
